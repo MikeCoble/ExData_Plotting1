@@ -34,24 +34,20 @@ web site</a>:
 
 ## Loading the data
 
-
-
-
-
 When loading the dataset into R, please consider the following:
 
 * The dataset has 2,075,259 rows and 9 columns. First
 calculate a rough estimate of how much memory the dataset will require
 in memory before reading into R. 
 
-2075259 rows x 9 columns x 8 bytes/double = 150MB
+    * 2075259 rows x 9 columns x 8 bytes/double = 150MB
 
 * Note that in this dataset missing values are coded as `?`.
 
 For the first plot I parse the first two columns as date & time.
 For the other plots it was easier to parse them as character and 
 then combine them into a single data_time column.
-
+```
 cols <- cols(
 +     Date = col_date(format = "%d/%m/%Y"),
 +     Time = col_time(format = ""),
@@ -66,20 +62,20 @@ cols <- cols(
 
 household_power_consumption <- read_delim("household_power_consumption.txt", 
 +     ";", escape_double = FALSE, trim_ws = TRUE, na="?", col_types=cols)
-
+```
 * We will only be using data from the dates 2007-02-01 and
 2007-02-02. One alternative is to read the data from just those dates
 rather than reading in the entire dataset and subsetting to those
 dates.
-
+```
 two_days <- subset(household_power_consumption, Date=="2007-02-01" | Date=="2007-02-02")
-
+```
 * I convert the Date and Time variables to
 Date/Time classes in R using lubridate's dmy_hms function:
-
+```
 library(lubridate)
 two_days$date_time = dmy_hms(paste(two_days$Date, two_days$Time ))
-
+```
 
 ## Making Plots
 
@@ -109,36 +105,42 @@ of my repository is up to date. There should be four PNG
 files and four R code files.
 
 
-The four plots  to construct are shown below. 
+The four plots (the target plot, my code and my plot) are shown below. 
 
 
 ### Plot 1
-
 
 #### Target Plot:
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
 #### My Code:
 ```
 png(filename="plot1.png", width=480, height=480, units="px")
-hist(two_days$Global_active_power, col="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)")
+    hist(two_days$Global_active_power, col="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)")
 dev.off()
 ```
-
 
 #### My Plot:
 ![plot of plot 1](plot1.png) 
 
 ### Plot 2
+#### Target Plot
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
 
+#### My Code:
+```
 png(filename="plot2.png", width=480, height=480, units="px")
     plot(two_days$date_time, two_days$Global_active_power, type="l", xlab="", ylab="Global Active Power (kilowatts)")
 dev.off()
-
-![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
-
+```
+#### My Plot:
+![plot of plot 2](plot2.png) 
 
 ### Plot 3
+#### Target Plot:
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
+#### My Code:
+```
 png(filename="plot3.png", width=480, height=480, units="px")
     plot(two_days$date_time, two_days$Sub_metering_1, type="l", xlab="", ylab="Energy sub metering")
     points(two_days$date_time, two_days$Sub_metering_2, type="l", col="red")
@@ -146,11 +148,17 @@ png(filename="plot3.png", width=480, height=480, units="px")
     legend("topright" , legend=c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), col=c("black", "red", "blue"), lty=1)
 dev.off()
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+```
+#### My Plot:
+![plot of plot 3](plot3.png) 
 
 
 ### Plot 4
+#### Target Plot:
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
+#### My Code:
+```
 png(filename="plot4.png", width=480, height=480, units="px")
     par(mfrow=c(2,2))
     
@@ -164,6 +172,6 @@ png(filename="plot4.png", width=480, height=480, units="px")
 
     with( two_days, plot(date_time, Global_reactive_power, type="l", xlab="datetime"))
 dev.off()
-
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
-
+```
+#### My Plot:
+![plot of plot 4](plot4.png) 
