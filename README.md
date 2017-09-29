@@ -119,9 +119,9 @@ Target Plot:
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
 My Code:
 '''R
-> png(filename="plot1.png", width=480, height=480, units="px")
-> hist(two_days$Global_active_power, col="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)")
-> dev.off()
+png(filename="plot1.png", width=480, height=480, units="px")
+hist(two_days$Global_active_power, col="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)")
+dev.off()
 '''
 ![plot of plot 1](plot1.png) 
 
