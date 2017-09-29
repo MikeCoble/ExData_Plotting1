@@ -118,11 +118,11 @@ The four plots  to construct are shown below.
 #### Target Plot:
 ![plot of chunk unnamed-chunk-2](figure/unnamed-chunk-2.png) 
 #### My Code:
-'''
+```
 png(filename="plot1.png", width=480, height=480, units="px")
 hist(two_days$Global_active_power, col="red", main="Global Active Power", xlab = "Global Active Power (kilowatts)")
 dev.off()
-'''
+```
 
 
 #### My Plot:
